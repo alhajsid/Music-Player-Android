@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="?android:colorBackground"
+        android:elevation="6dp"
+        android:layout_height="60dp"
+        android:id="@+id/setting_container">
+
+        <TextView
+            android:layout_marginTop="10dp"
+            style="@style/textStyle"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Setting"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tv_setting"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        style="@style/dividerStyle"
+        android:layout_height="1dp"
+        android:id="@+id/divider_1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent" android:id="@+id/setting_main_container">
+
+        <LinearLayout
+            android:layout_marginTop="32dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            style="@style/dividerStyle"
+            android:layout_height="1dp" android:id="@+id/divider_2">
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="?android:colorBackground"
+            android:weightSum="2"
+            android:gravity="end"
+            android:layout_height="50dp"
+            android:id="@+id/volume_up_container">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:text="Wake up with volume up button"
+                    android:layout_marginStart="16dp"
+                    style="@style/textStyle"
+                    android:layout_height="wrap_content" android:id="@+id/tv_volume_up"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:layout_height="match_parent">
+                <androidx.appcompat.widget.SwitchCompat
+                    android:layout_width="50dp"
+                    android:id="@+id/switch_volume_wake"
+                    android:layout_marginEnd="16dp"
+                    android:layout_height="20dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginStart="40dp"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            style="@style/dividerStyle"
+            android:layout_height="1dp" android:id="@+id/divider_3">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="?android:colorBackground"
+            android:weightSum="2"
+            android:gravity="end"
+            android:layout_height="50dp" android:id="@+id/theme_container">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Dark theme"
+                    android:textSize="16sp"
+                    android:layout_marginStart="16dp"
+                    style="@style/textStyle"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_theme" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:layout_width="50dp"
+                    android:id="@+id/switch_theme"
+                    android:layout_marginEnd="16dp"
+                    android:layout_height="20dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            style="@style/dividerStyle"
+            android:layout_height="1dp"
+            android:id="@+id/divider_4"
+            android:orientation="horizontal">
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

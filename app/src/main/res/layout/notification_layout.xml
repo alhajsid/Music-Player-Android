@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_container"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:weightSum="100">
+
+    <TextView
+        android:id="@+id/tv_playing_song"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="5dp"
+        android:layout_weight="50"
+        android:backgroundTint="@color/lightBlueColor"
+        android:background="@drawable/rounded_background"
+        android:clickable="false"
+        android:focusable="false"
+        android:gravity="center"
+        android:maxLines="2"
+        android:padding="5dp"
+        android:text="Suno na sang mar mar"
+        android:textSize="12sp"
+        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintVertical_bias="0.47" />
+
+    <ImageView
+        android:id="@+id/iv_back_song"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="13"
+        android:src="@drawable/btn_back_song" />
+
+    <ImageView
+        android:id="@+id/iv_play_pause"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="13"
+        android:backgroundTint="@color/blueColor"
+        android:background="@drawable/play_pause_btn_back"
+        android:gravity="center"
+        android:padding="10dp"
+        android:src="@drawable/btn_play_song"/>
+
+    <ImageView
+        android:id="@+id/iv_next_song"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="13"
+        android:src="@drawable/btn_next_song" />
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="10"
+        android:padding="6dp"
+        android:src="@drawable/ic_round_close_24" />
+
+</LinearLayout>
