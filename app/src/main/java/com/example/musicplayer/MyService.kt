@@ -4,7 +4,10 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.media.AudioAttributes
+import android.media.MediaMetadataRetriever
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.IBinder
@@ -23,6 +26,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 class MyService : Service() {
 
@@ -52,7 +56,7 @@ class MyService : Service() {
         mUpdateSeekbar = object : Runnable {
             override fun run() {
                 EventBus.getDefault().post(UpdateTime( mediaPlayer.currentSeconds,
-                    mediaPlayer.seconds,mediaPlayer.currentPosition,context!!))
+                    mediaPlayer.seconds,mediaPlayer.currentPosition))
                 mSeekbarUpdateHandler.postDelayed(this, 1000)
             }
         }
@@ -78,7 +82,7 @@ class MyService : Service() {
                     mediaPlayer.start()
                     currentPlayingSong = obj
                 }
-                refresh(context!!)
+                refresh()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -100,19 +104,19 @@ class MyService : Service() {
     private fun init() {
         if (songname == "pause") {
             mediaPlayer.pause()
-            refresh(context!!)
+            refresh()
             return
         } else if (songname == "play") {
             mediaPlayer.start()
-            refresh(context!!)
+            refresh()
             return
         } else if (songname == "next") {
-            next(context!!)
-            refresh(context!!)
+            next()
+            refresh()
             return
         } else if (songname == "back") {
-            back(context!!)
-            refresh(context!!)
+            back()
+            refresh()
             return
         } else if (songname.length > 1) {
             getAllAudioFromDevice(this, 1)
@@ -174,6 +178,20 @@ class MyService : Service() {
         EventBus.getDefault().unregister(this)
     }
 
+    fun getImage(filePath: String?): Bitmap?
+    {
+        val image: Bitmap?
+        val mData = MediaMetadataRetriever()
+        mData.setDataSource(filePath)
+        image = try {
+            val art = mData.embeddedPicture
+            BitmapFactory.decodeByteArray(art, 0, art!!.size)
+        } catch (e: java.lang.Exception) {
+            null
+        }
+        return image
+    }
+
     fun getAllAudioFromDevice(context: Context, a: Int) {
         val aj = MediaPlayer()
         val tempAudioList = ArrayList<AudioModel>()
@@ -196,7 +214,7 @@ class MyService : Service() {
                     val audioModel = AudioModel()
                     val path = c.getString(0)
                     val name = c.getString(1)
-                    val album = c.getString(2)
+                    val album = getImage(path)
                     val artist = c.getString(3)
                     aj.reset()
                     aj.setDataSource(path)
@@ -240,7 +258,7 @@ class MyService : Service() {
                     playingSongIndex = i
                     mediaPlayer.prepare()
                     mediaPlayer.start()
-                    refresh(context)
+                    refresh()
                     return
                 }
             }
@@ -248,7 +266,7 @@ class MyService : Service() {
         return
     }
 
-    fun refreshnotification(context: Context) {
+    fun refreshnotification() {
         val collapseview = RemoteViews("com.example.musicplayer", R.layout.notification_layout)
 
         val clickintent = Intent(context, NotificationReciever::class.java)
@@ -290,32 +308,32 @@ class MyService : Service() {
             collapseview.setImageViewResource(R.id.iv_play_pause, R.drawable.btn_pause_song)
         }
 
-        val notification = NotificationCompat.Builder(context, App().CHANNEL_ID)
+        val notification = NotificationCompat.Builder(context!!, App().CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_baseline_headset_24)
             .setCustomContentView(collapseview)
             .setContentIntent(pi5)
             .build()
-        val notificationManagerCompat = NotificationManagerCompat.from(context)
+        val notificationManagerCompat = NotificationManagerCompat.from(context!!)
         notificationManagerCompat.notify(2, notification)
 
     }
 
-    fun play(context: Context) {
+    fun play() {
         if (mediaPlayer.isPlaying) {
             mediaPlayer.pause()
         } else {
             mediaPlayer.start()
         }
-        refresh(context)
+        refresh()
     }
 
-    fun refresh(context: Context) {
+    fun refresh() {
         EventBus.getDefault().post(SongChanged(currentPlayingSong!!, mediaPlayer.isPlaying,
-            mediaPlayer.duration,context))
-        MyService().refreshnotification(context)
+            mediaPlayer.duration))
+        refreshnotification()
     }
 
-    fun back(context: Context) {
+    fun back() {
         if (playingSongIndex > 0) {
             playingSongIndex -= 1
             mediaPlayer.reset()
@@ -325,10 +343,10 @@ class MyService : Service() {
             mediaPlayer.start()
             currentPlayingSong = obj
         }
-        refresh(context)
+        refresh()
     }
 
-    fun next(context: Context) {
+    fun next() {
         try {
             if (playingSongIndex < songList!!.size - 1) {
                 playingSongIndex += 1
@@ -338,7 +356,7 @@ class MyService : Service() {
                 mediaPlayer.prepare()
                 mediaPlayer.start()
                 currentPlayingSong = obj
-                refresh(context)
+                refresh()
             }
         } catch (e: Exception) {
         }
@@ -346,27 +364,27 @@ class MyService : Service() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun playEvent(event:ToggleSong){
-        play(event.context)
+        play()
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun SeekToEvent(event:SeekTo){
         mediaPlayer.seekTo(event.position)
-        refresh(event.context)
+        refresh()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun updateEvent(event:UpdateData){
-        refresh(event.context)
+        refresh()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun NextEvent(event:PlayNextSong){
-        next(event.context)
+        next()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun BackEvent(event:PlayBackSong){
-        back(event.context)
+        back()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -378,7 +396,7 @@ class MyService : Service() {
         mediaPlayer.start()
         currentPlayingSong = obj
         playingSongIndex = event.position
-        refresh(context!!)
+        refresh()
     }
 
     companion object {

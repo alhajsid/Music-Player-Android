@@ -24,23 +24,22 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
 
     override fun onStart() {
         super.onStart()
-        EventBus.getDefault().post(UpdateData(context!!))
+        EventBus.getDefault().post(UpdateData())
     }
 
     fun initView(){
         sb_progress.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                // Display the current progress of SeekBar
                 if(b)
-                    EventBus.getDefault().post(SeekTo(i,context!!))
+                    EventBus.getDefault().post(SeekTo(i))
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
-                // Do something
+
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                // Do something
+
             }
         })
     }
@@ -48,15 +47,15 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
     fun clickListeners(){
 
         iv_play_pause.setOnClickListener {
-            EventBus.getDefault().post(ToggleSong(context!!))
+            EventBus.getDefault().post(ToggleSong())
         }
 
         iv_next_song.setOnClickListener {
-            EventBus.getDefault().post(PlayNextSong(context!!))
+            EventBus.getDefault().post(PlayNextSong())
         }
 
         iv_back_song.setOnClickListener {
-            EventBus.getDefault().post(PlayBackSong(context!!))
+            EventBus.getDefault().post(PlayBackSong())
         }
 
         btn_back.setOnClickListener {
@@ -91,14 +90,12 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
                 i += 1
                 seconds1 -= 60
             }
-            var o=""
-            if(seconds1<10){
-                o= "$i:0$seconds1"
+            return if(seconds1<10){
+                "$i:0$seconds1"
             }else{
-                o= "$i:$seconds1"
+                "$i:$seconds1"
 
             }
-            return o
         }
 
     override fun onDestroy() {

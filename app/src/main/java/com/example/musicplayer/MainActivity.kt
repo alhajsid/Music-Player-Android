@@ -114,11 +114,11 @@ class MainActivity : CustomAppCompatActivity() {
 
 }
 
-class SongChanged( var songModel:AudioModel,var isPlaying:Boolean,val duration:Int,val context:Context) { }
-class PlaySongAt (val position: Int,val context:Context){ /* Additional fields if needed */ }
-class PlayNextSong(val context:Context){}
-class PlayBackSong(val context:Context){}
-class ToggleSong(val context:Context){}
-class UpdateData(val context:Context){}
-class UpdateTime(val startTime:String,val endTime:String,val progress:Int,val context:Context){}
-class SeekTo(val position: Int,val context:Context){}
+class SongChanged( var songModel:AudioModel,var isPlaying:Boolean,val duration:Int) { }
+class PlaySongAt (val position: Int){ /* Additional fields if needed */ }
+class PlayNextSong(){}
+class PlayBackSong(){}
+class ToggleSong(){}
+class UpdateData(){}
+class UpdateTime(val startTime:String,val endTime:String,val progress:Int){}
+class SeekTo(val position: Int){}

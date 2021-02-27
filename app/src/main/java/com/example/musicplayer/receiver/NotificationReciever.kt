@@ -10,7 +10,7 @@ class NotificationReciever :BroadcastReceiver(){
 
     override fun onReceive(p0: Context?, p1: Intent?) {
 //        MyService.play()
-        EventBus.getDefault().post(ToggleSong(p0!!))
+        EventBus.getDefault().post(ToggleSong())
     }
 
 }
@@ -18,7 +18,7 @@ class NotificationReciever :BroadcastReceiver(){
 class NotificationRecieverBack :BroadcastReceiver(){
 
     override fun onReceive(p0: Context?, p1: Intent?) {
-        EventBus.getDefault().post(PlayBackSong(p0!!))
+        EventBus.getDefault().post(PlayBackSong())
 //        MyService.back()
     }
 
@@ -27,7 +27,7 @@ class NotificationRecieverBack :BroadcastReceiver(){
 class NotificationRecieverNext :BroadcastReceiver(){
 
     override fun onReceive(p0: Context?, p1: Intent?) {
-        EventBus.getDefault().post(PlayNextSong(p0!!))
+        EventBus.getDefault().post(PlayNextSong())
 //        MyService.next()
     }
 

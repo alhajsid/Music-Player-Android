@@ -50,7 +50,7 @@ class SongListFragment : Fragment(R.layout.fragment_song_list) {
 
     override fun onStart() {
         super.onStart()
-        EventBus.getDefault().post(UpdateData(context!!))
+        EventBus.getDefault().post(UpdateData())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,7 +81,7 @@ class SongListFragment : Fragment(R.layout.fragment_song_list) {
             adaptor.setList(MyService.songList!!)
         }
         adaptor.notifyDataSetChanged()
-        EventBus.getDefault().post(UpdateData(context!!))
+        EventBus.getDefault().post(UpdateData())
     }
 
     fun initRecyclerView(){
@@ -104,15 +104,15 @@ class SongListFragment : Fragment(R.layout.fragment_song_list) {
         }
 
         iv_play_pause.setOnClickListener {
-            EventBus.getDefault().post(ToggleSong(context!!))
+            EventBus.getDefault().post(ToggleSong())
         }
 
         iv_next_song.setOnClickListener {
-            EventBus.getDefault().post(PlayNextSong(context!!))
+            EventBus.getDefault().post(PlayNextSong())
         }
 
         iv_back_song.setOnClickListener {
-            EventBus.getDefault().post(PlayBackSong(context!!))
+            EventBus.getDefault().post(PlayBackSong())
         }
     }
 
